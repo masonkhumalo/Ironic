@@ -4,8 +4,8 @@ const pool = new Pool({
     user: 'postgres', //change to admin
     host: 'localhost',
     database: 'Joint',
-    password: '12345', //change to 12345
-    port: 5000,
+    password: '12345', //change to admin12345
+    port: 5432,
 })
 
 

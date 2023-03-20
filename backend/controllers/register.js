@@ -1,22 +1,20 @@
-const db = require("../configs/db.conn");
+const db = require("../config/connection");
 const bcrypt = require("bcrypt");
 const pool = db;
 require("dotenv").config();
 // const jwt = require("jsonwebtoken");
 
 
-exports.addUser = async (request, response) => {
-  // set a default picture
-  let picture =
+exports.add = async (request, response) => {
+    let picture =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
-
   // get data from the request
-  let { full_name, email, password, user_type, location, contactno } = request.body;
-  let rating = 0;
+  let { firstname, lastname, email, contactno,password ,user_type} = request.body;
+ 
 
   let uType = user_type;
   console.log(user_type)
-  console.log(full_name)
+  console.log(firstname)
  
   // adding user attempt section
   try {
@@ -34,9 +32,9 @@ exports.addUser = async (request, response) => {
       password = await bcrypt.hash(request.body.password, hashedPassword);
 
       // add new user
-      pool.query(`INSERT INTO users (full_name, email, password, user_type, location, contactno, picture,rating) 
-                  VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING user_id;`,
-        [full_name, email, password, user_type, location, contactno, picture,rating],
+      pool.query(`INSERT INTO users (email,firstname, lastname,  contactno, password, user_type,picture) 
+                  VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING user_id;`,
+        [email,firstname, lastname,  contactno, password, user_type,picture],
         (error, result) => {
           // if error, log it
           if (error) {
@@ -47,19 +45,19 @@ exports.addUser = async (request, response) => {
 
           
 
-            if (uType === 2) {
-                let mech_id = result.rows[0].user_id;
-             console.log( mech_id)
+            if (uType === 1) {
+                let seller_id = result.rows[0].user_id;
+             console.log( seller_id)
               
-              pool.query(`INSERT INTO mechanic (mech_id) 
+              pool.query(`INSERT INTO seller (seller_id) 
               VALUES($1) RETURNING *;`,
-              [mech_id],
+              [seller_id],
               (error, result) => {
 
                 if(error){
                   
                 }else{
-                  response.status(200).json({ message: "user info successfully added a mechanic"});
+                  response.status(200).json({ message: "user info successfully added as seller"});
                 }
 
 
@@ -68,7 +66,7 @@ exports.addUser = async (request, response) => {
              
             }
           
-            if (uType === 1) {
+            if (uType === 2) {
 
               response.status(200).json({ message: "user info successfully added a client"});
             }
@@ -83,4 +81,5 @@ exports.addUser = async (request, response) => {
     
   }
 };
+
 

@@ -4,10 +4,12 @@ const cors = require('cors');
 const app = express()
 
 
+
+const login = require('./routes/login');
+
+
 // setting up a port
-const port = process.env.PORT || 5000;
-
-
+const port = process.env.PORT || 3300;
 
 app.use(bodyParser.json())
 app.use(
@@ -15,7 +17,6 @@ app.use(
         extended: true,
     })
 )
-
 
 
 app.use(bodyParser.json());
@@ -35,6 +36,9 @@ app.get('/', (request, response) => {
 
 
 // app.use('/register', register);
+app.use('/', login);
+require('./routes/register')(app);
+
 
 
 // using the auth routes

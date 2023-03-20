@@ -5,9 +5,9 @@ import { RegisterComponent } from './components/Auth/register/register.component
 import { SplashComponent } from './components/splash/splash.component';
 
 const routes: Routes = [
-  {path:"",component:SplashComponent},
+  {path:'' ,component:SplashComponent},
   {path:'register',component:RegisterComponent},
-  {path:"login",component:LoginComponent}
+  {path:'login',component:LoginComponent}
 ];
 
 @NgModule({
