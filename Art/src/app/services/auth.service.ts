@@ -8,6 +8,7 @@ import { User } from '../../app/interface/user';
   providedIn: 'root'
 })
 export class AuthService {
+  
   private baseUrl = "http://localhost:3300"
   isLoggedIn$: any;
   EditUserForm(): any {
@@ -24,6 +25,10 @@ export class AuthService {
 
   login(loginDetails:any){
     return this.httpClient.post(`${this.baseUrl}/login`,loginDetails)
+  }
+
+  saveToken(token: string) {
+    localStorage.setItem('token', token);
   }
 
 }

@@ -49,6 +49,7 @@ export class RegisterComponent implements OnInit {
       user_type: Number(this.regForm.value.user_type),
       contactno: this.regForm.value.contactno,
       password: this.regForm.value.password,
+      picture: this.regForm.value.picture
     }
 
     console.log(UserObject)

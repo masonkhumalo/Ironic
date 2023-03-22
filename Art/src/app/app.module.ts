@@ -7,10 +7,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/Auth/register/register.component';
+import { LoginComponent } from './components/Auth/login/login.component';
 
 
 @NgModule({
-  declarations: [AppComponent,RegisterComponent],
+  declarations: [AppComponent,RegisterComponent ,LoginComponent],
   imports: [
     BrowserModule,
      IonicModule.forRoot(),
